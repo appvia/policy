@@ -1,0 +1,19 @@
+metadata:
+  name: "Checks that AWS RDS resources have encryption enabled with a Customer Managed KMS Key"
+  id: "CUSTOM_APPVIA_GENERIC_AWS_RDS_ENCRYPTED"
+  category: "ENCRYPTION"
+scope:
+  provider: aws
+definition:
+  and:
+  - cond_type: "attribute"
+    resource_types:
+    - "aws_db_instance"
+    attribute: "storage_encrypted"
+    operator: "equals"
+    value: "true"
+  - cond_type: "attribute"
+    resource_types:
+    - "aws_db_instance"
+    attribute: "kms_key_id"
+    operator: "exists"

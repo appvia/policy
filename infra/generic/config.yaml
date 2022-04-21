@@ -1,0 +1,18 @@
+framework:
+  - terraform
+external-checks-dir: ./
+run-all-external-checks: true
+check:
+  - CKV_AWS_16 # Ensure all data stored in the RDS is securely encrypted at rest
+  - CKV_AWS_17 # Ensure all data stored in RDS is not publicly accessible
+  - CKV_AWS_118 # Ensure that enhanced monitoring is enabled for Amazon RDS instances
+  - CKV_AWS_129 # Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled
+  - CKV_AWS_133 # Ensure that RDS instances has backup policy
+  - CKV_AWS_157 # Ensure that RDS instances have Multi-AZ enabled
+  - CKV_AWS_211 # Ensure RDS uses a modern CaCert
+  - CKV_AWS_226 # Ensure DB instance gets all minor upgrades automatically
+  - CKV_AWS_250 # Ensure that RDS PostgreSQL instances use a non vulnerable version with the log_fdw extension (https://aws.amazon.com/security/security-bulletins/AWS-2022-004/)
+  - CKV2_AWS_8 # Ensure that RDS clusters has backup plan of AWS Backup
+  - CKV_AWS_7 # Ensure rotation for customer created CMKs is enabled
+  - CKV_AWS_158 # Ensure that CloudWatch Log Group is encrypted by KMS
+  - CKV_AWS_227 # Ensure KMS key is enabled

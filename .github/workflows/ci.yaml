@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*.*.*"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  checkov:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.0
+
+      - name: Get checkov
+        run: pip install checkov
+
+      - name: Get yq yaml parser
+        run: |
+          wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          chmod a+x /usr/local/bin/yq
+
+      - name: Setup BATS
+        uses: mig4/setup-bats@v1
+        with:
+          bats-version: 1.6.0
+
+      - name: Generate BATS tests
+        run: ./infra/generate-bats-tests.sh
+
+      - name: Execute BATS tests
+        continue-on-error: true
+        run: bats --report-formatter junit infra-tests.bats
+
+      - name: Test Report
+        uses: dorny/test-reporter@0d00bb14cb0cc2c9b8985df6e81dd333188224e1 # renovate: tag=v1.5.0
+        if: always()
+        with:
+          name: checkov results
+          path: report.xml
+          reporter: java-junit
+          fail-on-error: false
+
