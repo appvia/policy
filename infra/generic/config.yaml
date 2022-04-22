@@ -1,7 +1,6 @@
 framework:
   - terraform
 external-checks-dir: ./
-run-all-external-checks: true
 check:
   - CKV_AWS_16 # Ensure all data stored in the RDS is securely encrypted at rest
   - CKV_AWS_17 # Ensure all data stored in RDS is not publicly accessible
