@@ -38,7 +38,7 @@ jobs:
         run: bats --report-formatter junit infra-tests.bats
 
       - name: Test Report
-        uses: dorny/test-reporter@0d00bb14cb0cc2c9b8985df6e81dd333188224e1 # renovate: tag=v1.5.0
+        uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
         if: always()
         with:
           name: checkov results
